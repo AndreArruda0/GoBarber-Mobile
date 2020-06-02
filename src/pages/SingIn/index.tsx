@@ -1,5 +1,5 @@
 import React, {useCallback, useRef} from 'react';
-import {Image, KeyboardAvoidingView, Platform, ScrollView} from 'react-native';
+import {Image, KeyboardAvoidingView, Platform, ScrollView,TextInput} from 'react-native';
 import 'react-native-gesture-handler';
 import {Container,Title, ForgotPassword, ForgotPasswordText,CreateAccuntButton,CreateAccuntButtonText} from './styles';
 import logoImg from '../../assets/logo.png';
@@ -15,6 +15,8 @@ const SingIn: React.FC = () => {
     const navigation = useNavigation();
 
     const formRef = useRef<FormHandles>(null);
+
+    const passwordInputRef = useRef<TextInput>(null);
 
     const handleSignIn = useCallback((data:object) => {
         console.log(data);
@@ -36,8 +38,8 @@ const SingIn: React.FC = () => {
             <Title>Faça seu logon</Title>
 
             <Form ref={formRef} onSubmit={handleSignIn}>
-                <Input name="email" icon="mail" placeholder="E-mail" />
-                <Input name="password" icon="lock" placeholder="Senha" />
+                <Input name="email" keyboardType="email-address" autoCapitalize="none" autoCorrect={false} icon="mail" placeholder="E-mail" returnKeyType="next" />
+                <Input name="password" ref={passwordInputRef} secureTextEntry icon="lock" placeholder="Senha" returnKeyType="send" />
 
                 <Button onPress={() => {formRef.current?.submitForm()}}>Entrar</Button>
             </Form>
